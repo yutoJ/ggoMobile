@@ -1,14 +1,14 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { 
+import {
   StyleSheet,
   View,
   TextInput,
   Button,
 } from 'react-native';
 
-import { login, logout } from '../actions/user';
+import { login, logout } from '../../actions/user';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class UserTab extends Component {
+class ProfileTab extends Component {
 
   state = {
     name: ''
@@ -33,14 +33,14 @@ class UserTab extends Component {
 
   render() {
     const { accessToken, login, logout } = this.props;
-    
+
     return (
       <View style={styles.container}>
         {
           !accessToken
           ?
           <View>
-            <TextInput 
+            <TextInput
               style={styles.input}
               placeholder="What's your name?"
               onChangeText={(name) => this.setState({ name })}/>
@@ -67,4 +67,4 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserTab);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileTab);
