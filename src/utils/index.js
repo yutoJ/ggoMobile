@@ -1,4 +1,6 @@
 import { HOST } from '../constants';
+import { MOCK_AVATAR } from '../constants/secret';
+//TODO
 
 export function normalizeGadgets(gadgets) {
   return gadgets.map(gadget => {
@@ -19,6 +21,7 @@ export function normalizeGadget(gadget) {
     id: gadget.id || '',
     title: gadget.listing_name || '',
     image: gadget.image.url || '',
+    description: gadget.description || '',
     gadgetType: gadget.gadget_type || '',
     price: gadget.price || '',
     hasGuarantee: gadget.has_guarantee || '',
@@ -32,7 +35,7 @@ export function normalizeGadget(gadget) {
     owner: gadget.owner ? {
       name: gadget.owner.name || '',
       email: gadget.owner.email || '',
-      image: gadget.owner.local_image || '',
+      image: gadget.owner.local_image.url || MOCK_AVATAR,
     } : {
       email: '',
       name: '',
