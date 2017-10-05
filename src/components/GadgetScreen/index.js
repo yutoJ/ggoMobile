@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import GoGoButton from '../Shared/GoGoButton';
 
 import { getGadget } from '../../actions/gadget';
 
@@ -112,8 +113,14 @@ class GadgetScreen extends Component {
 
         <View style = {styles.bookingBar}>
           <Text style={{flex: 1}}>
-            <Text style = {{fontWieght: 'bold'}}>{`${price}円`}</Text>/日
+            <Text style = {{fontWeight: 'bold'}}>{`${price}円`}</Text>/日
           </Text>
+          <GoGoButton
+            onPress = { () => {alert("Check Availability")} }
+            backgroundColor = '#FF5A60'
+            textColor = 'white'
+            label = 'Check Availability'
+          />
         </View>
       </View>
     );
