@@ -6,7 +6,7 @@ import { addNavigationHelpers, StackNavigator, TabNavigator, NavigationActions }
 
 import ExploreTab from '../components/MainScreen/ExploreTab';
 import ProfileTab from '../components/MainScreen/ProfileTab';
-import DetailScreen from '../components/DetailScreen';
+import GadgetScreen from '../components/GadgetScreen';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -56,11 +56,11 @@ export const AppNavigator = StackNavigator({
       header: null,
     }
   },
-  Detail: {
-    screen: DetailScreen,
-    navigationOptions: {
-      title: 'GGO',
-    }
+  Gadget: {
+    screen: GadgetScreen,
+    navigationOptions: (props) => ({
+      title: props.navigation.state.params.item.title,
+    })
   },
 });
 

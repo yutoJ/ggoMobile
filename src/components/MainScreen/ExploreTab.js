@@ -42,7 +42,7 @@ class ExploreTab extends Component {
   }
 
   onPress(item) {
-    this.props.navigate({ routeName: "Detail", params: { item: item } });
+    this.props.navigate({ routeName: "Gadget", params: { item: item } });
   }
 
   render() {

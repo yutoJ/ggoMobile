@@ -1,7 +1,8 @@
-import { SET_GADGETS } from '../actions/gadget';
+import { SET_GADGET, SET_GADGETS } from '../actions/gadget';
 
 const initialState = {
-  gadgets: []
+  gadgets: [],
+  gadget: null,
 };
 
 export default function(state = initialState, action) {
@@ -9,6 +10,12 @@ export default function(state = initialState, action) {
     return {
       ...state,
       gadgets: action.gadgets
+    }
+  }
+  if (action.type === SET_GADGET) {
+    return {
+      ...state,
+      gadget: action.gadget
     }
   }
   return state;
