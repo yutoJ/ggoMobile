@@ -10,6 +10,7 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { login, logout } from '../../actions/user';
+import { LoginManager, AccessToken } from 'react-native-fbsdk';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,7 +45,21 @@ const styles = StyleSheet.create({
 class AuthenticationScreen extends Component {
 
   onFBAuth() {
-    console.log("Facebook Login");
+    LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
+      function(result) {
+        if (result.isCancelled) {
+          alert('Login cancelled');
+        } else {
+          AccessToken.getCurrentAccessToken()
+          .then(data => {
+            alert(data.accessToken.toString())
+          })
+        }
+      },
+      function(error) {
+        alert('Login fail with error: ' + error);
+      }
+    );
   }
 
   render() {
