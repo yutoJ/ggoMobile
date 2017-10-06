@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import { login, logout } from '../../actions/user';
+import { loginWithFacebook, logout } from '../../actions/user';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
 
 const styles = StyleSheet.create({
@@ -46,13 +46,15 @@ class AuthenticationScreen extends Component {
 
   onFBAuth() {
     LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
-      function(result) {
+      //function(result) {
+      (result) => {
         if (result.isCancelled) {
           alert('Login cancelled');
         } else {
           AccessToken.getCurrentAccessToken()
           .then(data => {
-            alert(data.accessToken.toString())
+            //alert(data.accessToken.toString())
+            this.props.loginWithFacebook(data.accessToken.toString())
           })
         }
       },
@@ -81,7 +83,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: (name) => dispatch(login(name)),
+  loginWithFacebook: (facebookAccessToken) => dispatch(loginWithFacebook(facebookAccessToken)),
   logout: () => dispatch(logout()),
 });
 
