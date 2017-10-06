@@ -1,10 +1,12 @@
 
 import { REHYDRATE } from 'redux-persist/constants';
 
-import { SET_ACCESS_TOKEN } from '../actions/user';
+import { SET_ACCESS_TOKEN, SET_PROFILE, SET_PAYMENT } from '../actions/user';
 
-const initialState = { 
+const initialState = {
   accessToken: null,
+  profile: null,
+  payment: null,
 };
 
 export default function(state = initialState, action) {
@@ -12,6 +14,20 @@ export default function(state = initialState, action) {
     return {
       ...state,
       accessToken: action.accessToken
+    }
+  }
+
+  if (action.type === SET_PROFILE) {
+    return {
+      ...state,
+      profile: action.profile
+    }
+  }
+
+  if (action.type === SET_PAYMENT) {
+    return {
+      ...state,
+      payment: action.payment
     }
   }
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
   StyleSheet,
   View,
+  Text,
   TextInput,
   Button,
 } from 'react-native';
@@ -32,7 +33,7 @@ class ProfileTab extends Component {
   }
 
   render() {
-    const { accessToken, login, logout } = this.props;
+    const { accessToken, login, logout, profile } = this.props;
 
     return (
       <View style={styles.container}>
@@ -49,9 +50,12 @@ class ProfileTab extends Component {
               onPress={() => login(this.state.name)}/>
           </View>
           :
-          <Button
-            title='Logout'
-            onPress={() => logout()}/>
+          <View>
+            <Text>{profile.name}</Text>
+            <Button
+              title='Logout'
+              onPress={() => logout()}/>
+          </View>
         }
       </View>
     );
@@ -59,7 +63,8 @@ class ProfileTab extends Component {
 }
 
 const mapStateToProps = state => ({
-  accessToken: state.user.accessToken
+  accessToken: state.user.accessToken,
+  profile: state.user.profile,
 });
 
 const mapDispatchToProps = dispatch => ({

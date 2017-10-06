@@ -43,3 +43,11 @@ export function normalizeGadget(gadget) {
     }
   }
 }
+
+export function normalizeProfile (email, name, image) {
+  return {
+    email: email || '',
+    name: name || '',
+    avatar: image || MOCK_AVATAR,
+  }
+}
