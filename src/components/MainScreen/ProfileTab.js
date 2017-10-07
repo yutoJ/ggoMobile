@@ -34,7 +34,6 @@ class ProfileTab extends Component {
 
   render() {
     const { accessToken, login, logout, profile } = this.props;
-
     return (
       <View style={styles.container}>
         {

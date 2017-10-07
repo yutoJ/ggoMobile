@@ -36,6 +36,8 @@ export default function(state = initialState, action) {
     return {
       ...state,
       accessToken: savedUser.accessToken,
+      profile: savedUser.profile,
+      payment: savedUser.payment,
     };
   }
 

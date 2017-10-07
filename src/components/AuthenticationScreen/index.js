@@ -11,6 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import { loginWithFacebook, logout } from '../../actions/user';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
+import { resetRoute } from '../../actions/nav';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,6 +45,13 @@ const styles = StyleSheet.create({
 
 class AuthenticationScreen extends Component {
 
+  componentWillMount() {
+    const { resetRoute, accessToken } = this.props;
+    if (accessToken) {
+      resetRoute({ routeName: 'Main' });
+    }
+  }
+
   onFBAuth() {
     LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
       //function(result) {
@@ -53,7 +61,6 @@ class AuthenticationScreen extends Component {
         } else {
           AccessToken.getCurrentAccessToken()
           .then(data => {
-            //alert(data.accessToken.toString())
             this.props.loginWithFacebook(data.accessToken.toString())
           })
         }
@@ -84,6 +91,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loginWithFacebook: (facebookAccessToken) => dispatch(loginWithFacebook(facebookAccessToken)),
+  resetRoute: (route) => dispatch(resetRoute(route)),
   logout: () => dispatch(logout()),
 });
 

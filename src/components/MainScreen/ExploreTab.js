@@ -54,7 +54,7 @@ class ExploreTab extends Component {
         renderItem={({item}) =>
           <TouchableOpacity onPress={() => this.onPress(item)} style={styles.item}>
             <Image style={styles.image} source= {{uri: item.image }} />
-            <Text style={styles.title}>{`$${item.price} ${item.instant ? '🎉 ' : ''}${item.title}`}</Text>
+            <Text style={styles.title}>{`${item.price}円/日 ${item.instant ? '🎉 ' : ''}${item.title}`}</Text>
             <Text>{`${item.gadgetType}`}</Text>
           </TouchableOpacity>
         }
