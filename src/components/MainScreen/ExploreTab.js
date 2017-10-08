@@ -72,13 +72,16 @@ class ExploreTab extends Component {
   }
 
   render() {
-    const { gadgets } = this.props;
+    const { gadgets, filter } = this.props;
+    console.log(filter);
     return (
       <View style = {styles.container}>
         <View style = {styles.filter}>
           <TouchableOpacity style={styles.filterButton} onPress={() => this.onFilterPress()}>
             <Icon size={30} name = 'ios-search-outline' color = 'white' />
-            <Text style = { styles.filterText}>検索 (ガジェット, 時間)</Text>
+            <Text style = { styles.filterText}>
+              {`${filter.address || '場所'} - ${filter.startDate && filter.endDate ? `${filter.startDate} to ${filter.endDate}` : '時間' }`}
+            </Text>
           </TouchableOpacity>
         </View>
 
@@ -100,7 +103,8 @@ class ExploreTab extends Component {
 }
 
 const mapStateToProps = state => ({
-  gadgets: state.gadget.gadgets
+  gadgets: state.gadget.gadgets,
+  filter: state.gadget.filter,
 });
 
 const mapDispatchToProps = dispatch => ({

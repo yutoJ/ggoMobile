@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 
 import GoGoButton from '../Shared/GoGoButton';
-import { login, logout } from '../../actions/user';
+import { setFilter, getGadgets } from '../../actions/gadget';
+import { goBack } from '../../actions/nav';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,9 +48,9 @@ class FilterModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      address: '',
-      startDate: '',
-      endDate: '',
+      address: props.filter.address,
+      startDate: props.filter.startDate,
+      endDate: props.filter.endDate,
     }
   }
 
@@ -88,8 +89,14 @@ class FilterModal extends Component {
   }
 
   onSearch() {
+    // Step 1: Set filter setFilter()
+    this.props.setFilter(this.state);
 
+    // Step 2: Go back ExploreTab
+    this.props.goBack();
 
+    // Step 3: Get new list of gadgets based on search criteria
+    this.props.getGadgets();
   }
 
   render() {
@@ -120,10 +127,14 @@ class FilterModal extends Component {
 }
 
 const mapStateToProps = state => ({
+  filter: state.gadget.filter,
 
 });
 
 const mapDispatchToProps = dispatch => ({
+  setFilter: (filter) => dispatch(setFilter(filter)),
+  getGadgets: () => dispatch(getGadgets()),
+  goBack: () => dispatch(goBack())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterModal);
