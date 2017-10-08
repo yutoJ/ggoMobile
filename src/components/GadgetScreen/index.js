@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import GoGoButton from '../Shared/GoGoButton';
 
 import { getGadget } from '../../actions/gadget';
+import { navigate } from '../../actions/nav';
 
 const styles = StyleSheet.create({
   container: {
@@ -69,6 +70,10 @@ class GadgetScreen extends Component {
     this.props.getGadget(selectedGadgetId);
   }
 
+  onCheckAvailability() {
+    this.props.navigate( { routeName: 'Booking' });
+  }
+
   render() {
     const gadget = this.props.gadget;
     if (!gadget) return null;
@@ -116,7 +121,7 @@ class GadgetScreen extends Component {
             <Text style = {{fontWeight: 'bold'}}>{`${price}円`}</Text>/日
           </Text>
           <GoGoButton
-            onPress = { () => {alert("Check Availability")} }
+            onPress = { () => { this.onCheckAvailability() } }
             backgroundColor = '#FF5A60'
             textColor = 'white'
             label = 'Check Availability'
@@ -133,6 +138,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getGadget: (gadgetId) => dispatch(getGadget(gadgetId)),
+  navigate: (route) => dispatch(navigate(route)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GadgetScreen);

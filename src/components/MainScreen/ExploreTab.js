@@ -73,7 +73,6 @@ class ExploreTab extends Component {
 
   render() {
     const { gadgets, filter } = this.props;
-    console.log(filter);
     return (
       <View style = {styles.container}>
         <View style = {styles.filter}>
