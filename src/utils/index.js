@@ -24,6 +24,7 @@ export function normalizeGadget(gadget) {
     description: gadget.description || '',
     gadgetType: gadget.gadget_type || '',
     price: gadget.price || '',
+    instant: gadget.instant || '',
     hasGuarantee: gadget.has_guarantee || '',
     hasManual: gadget.has_manual || '',
     hasContent: gadget.has_content || '',
