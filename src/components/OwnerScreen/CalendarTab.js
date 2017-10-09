@@ -13,7 +13,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { navigate } from '../../actions/nav';
-import { getGadgets } from '../../actions/gadget';
+import { getListings } from '../../actions/host';
 
 const styles = StyleSheet.create({
   container: {
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 class CalendarTab extends Component {
 
   componentWillMount() {
-    this.props.getGadgets();
+    this.props.getListings();
   }
 
   onPress(item) {
@@ -59,13 +59,13 @@ class CalendarTab extends Component {
   }
 
   render() {
-    const { gadgets } = this.props;
+    const { listings } = this.props;
     return (
       <View style = {styles.container}>
         <Text style = {styles.heading}>あなたのガジェット</Text>
         <FlatList
           style={styles.list}
-          data={gadgets}
+          data={ listings }
           renderItem={({item}) =>
             <TouchableOpacity onPress={() => this.onPress(item)} style={styles.item}>
               <Image style={styles.image} source= {{uri: item.image }} />
@@ -81,12 +81,12 @@ class CalendarTab extends Component {
 }
 
 const mapStateToProps = state => ({
-  gadgets: state.gadget.gadgets,
+  listings: state.host.listings,
 });
 
 const mapDispatchToProps = dispatch => ({
   navigate: (route) => dispatch(navigate(route)),
-  getGadgets: () => dispatch(getGadgets()),
+  getListings: () => dispatch(getListings()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarTab);

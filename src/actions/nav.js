@@ -1,4 +1,3 @@
-
 import { NavigationActions } from 'react-navigation';
 
 export function goBack() {
@@ -13,7 +12,7 @@ export function resetRoute(route) {
   return (dispatch, getState) => {
     const nav = getState().nav;
     dispatch(NavigationActions.reset({
-      index: 0, 
+      index: 0,
       key: null,
       actions: [
         NavigationActions.navigate(route)
