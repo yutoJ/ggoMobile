@@ -11,6 +11,7 @@ import GadgetScreen from '../components/GadgetScreen';
 import AuthenticationScreen from '../components/AuthenticationScreen';
 import FilterModal from '../components/FilterModal';
 import BookingModal from '../components/BookingModal';
+import CalendarModal from '../components/CalendarModal';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -53,9 +54,24 @@ export const MainScreen = TabNavigator({
   },
 }, tabConfig);
 
+export const CalendarStack = StackNavigator({
+  CalendarTab: {
+    screen: CalendarTab,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  CalendarModal: {
+    screen: CalendarModal,
+    navigationOptions: (props) => ({
+      title: props.navigation.state.params.item.title,
+    })
+  },
+});
+
 export const OwnerScreen = TabNavigator({
   Calendar: {
-    screen: CalendarTab,
+    screen: CalendarStack,
     navigationOptions: {
       tabBarLabel: 'カレンダー',
       tabBarIcon: ({focused, tintColor}) => <Icon name={'ios-calendar-outline'} size={30} color={tintColor}/>
@@ -64,8 +80,8 @@ export const OwnerScreen = TabNavigator({
   Profile: {
     screen: ProfileTab,
     navigationOptions: {
-      tabBarLabel: 'PROFILE',
-      tabBarIcon: ({focused, tintColor}) => <Icon name={'ios-person-outline'} size={30} color={tintColor}/>
+      tabBarLabel: 'あなた',
+      tabBarIcon: ({focused, tintColor}) => <Icon name={'ios-person'} size={30} color={tintColor}/>
     }
   },
 }, {
