@@ -9,6 +9,8 @@ import {
 import Dates from 'react-native-dates';
 import moment from 'moment';
 
+import { bookGadget } from '../../actions/gadget';
+
 import GoGoButton from '../Shared/GoGoButton';
 
 const styles = StyleSheet.create({
@@ -32,6 +34,11 @@ class BookingModal extends Component {
   }
 
   onBooking() {
+    const { bookGadget, gadget } = this.props;
+    const startDate = this.state.startDate.format('YYYY-MM-DD');
+    const endDate = this.state.endDate.format('YYYY-MM-DD');
+
+    bookGadget(gadget.id, startDate, endDate);
   }
 
   render() {
@@ -58,7 +65,7 @@ class BookingModal extends Component {
          />
 
          </View>
-         <GoGoButton onPress = { () => this.onSearch()}
+         <GoGoButton onPress = { () => this.onBooking()}
            backgroundColor = {!this.state.startDate ? 'rgba(47,134,142,0.2)' : '#2F868E' }
            textColor = {!this.state.startDate ? 'rgba(226,226,226,0.2)' : '#E2E2E2' }
            //TODO Request or resevation
@@ -77,7 +84,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  bookGadget: (gadgetId, startDate, endDate) => dispatch(bookGadget(gadgetId, startDate, endDate)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingModal);

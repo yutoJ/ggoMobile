@@ -124,7 +124,7 @@ class GadgetScreen extends Component {
             onPress = { () => { this.onCheckAvailability() } }
             backgroundColor = '#FF5A60'
             textColor = 'white'
-            label = 'Check Availability'
+            label = '貸し出し予定確認'
           />
         </View>
       </View>

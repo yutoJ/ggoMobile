@@ -1,5 +1,6 @@
 import { HOST } from '../constants';
 import { normalizeGadget, normalizeGadgets } from '../utils';
+import { navigate } from './nav';
 
 export const SET_GADGET = 'SET_GADGET';
 export const SET_GADGETS = 'SET_GADGETS';
@@ -49,6 +50,35 @@ export function getGadgets() {
     .then(json => {
       if(json.is_success) {
         dispatch(setGadgets(normalizeGadgets(json.gadgets)));
+      } else {
+        alert(json.error);
+      }
+    })
+    .catch(e => alert(e));
+  }
+}
+
+export function bookGadget(gadgetId, startDate, endDate) {
+  return (dispatch, getState) => {
+    const accessToken = getState().user.accessToken;
+
+    return fetch(`${HOST}/api/v1/reservations`, {
+      method: 'POST',
+      body: JSON.stringify({
+        gadget_id: gadgetId,
+        start_date: startDate,
+        end_date: endDate,
+        access_token: accessToken
+      }),
+      headers: {
+        "content-type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(json => {
+      if (json.is_success) {
+        alert("おめでとうございます！予約完了しました");
+        dispatch(navigate({ routeName: 'Explore' }));
       } else {
         alert(json.error);
       }
