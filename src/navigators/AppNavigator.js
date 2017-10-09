@@ -6,6 +6,7 @@ import { addNavigationHelpers, StackNavigator, TabNavigator, NavigationActions }
 
 import ExploreTab from '../components/MainScreen/ExploreTab';
 import ProfileTab from '../components/MainScreen/ProfileTab';
+import CalendarTab from '../components/OwnerScreen/CalendarTab';
 import GadgetScreen from '../components/GadgetScreen';
 import AuthenticationScreen from '../components/AuthenticationScreen';
 import FilterModal from '../components/FilterModal';
@@ -39,8 +40,25 @@ export const MainScreen = TabNavigator({
   Explore: {
     screen: ExploreTab,
     navigationOptions: {
-      tabBarLabel: 'EXPLORE',
+      tabBarLabel: '探す',
       tabBarIcon: ({focused, tintColor}) => <Icon name={'ios-search-outline'} size={30} color={tintColor}/>
+    }
+  },
+  Profile: {
+    screen: ProfileTab,
+    navigationOptions: {
+      tabBarLabel: 'あなた',
+      tabBarIcon: ({focused, tintColor}) => <Icon name={'ios-person-outline'} size={30} color={tintColor}/>
+    }
+  },
+}, tabConfig);
+
+export const OwnerScreen = TabNavigator({
+  Calendar: {
+    screen: CalendarTab,
+    navigationOptions: {
+      tabBarLabel: 'カレンダー',
+      tabBarIcon: ({focused, tintColor}) => <Icon name={'ios-calendar-outline'} size={30} color={tintColor}/>
     }
   },
   Profile: {
@@ -50,7 +68,13 @@ export const MainScreen = TabNavigator({
       tabBarIcon: ({focused, tintColor}) => <Icon name={'ios-person-outline'} size={30} color={tintColor}/>
     }
   },
-}, tabConfig);
+}, {
+  ...tabConfig,
+  tabBarOptions: {
+    ...tabConfig.tabBarOptions,
+    activeTintColor: '#007B7F'
+  }
+});
 
 export const AppNavigator = StackNavigator({
   Authentication: {
@@ -89,6 +113,12 @@ export const AppNavigator = StackNavigator({
         elevation: 0,
       },
       headerTintColor: '#E2E2E2',
+    }
+  },
+  Owner: {
+    screen: OwnerScreen,
+    navigationOptions: {
+      header: null,
     }
   },
 });

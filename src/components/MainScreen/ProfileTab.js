@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { logout, addPayment } from '../../actions/user';
+import { resetRoute } from '../../actions/nav';
 import stripe from 'tipsi-stripe';
 import { STRIPE_P_KEY } from '../../constants/secret';
 
@@ -59,11 +60,18 @@ class ProfileTab extends Component {
     this.props.addPayment(token.tokenId);
   }
 
-  switchType() {}
+  switchType() {
+    const { resetRoute, firstRouteName } = this.props;
+    if (firstRouteName === 'Main') {
+      resetRoute({ routeName: 'Owner'});
+    } else {
+      resetRoute({ routeName: 'Main'});
+    }
+  }
 
   render() {
     const profile = this.props.profile || {}
-    const payment = this.props.payment;
+    const { payment, firstRouteName } = this.props.payment;
     return (
       <ScrollView style = { styles.container }>
         <View style = { styles.profile }>
@@ -75,8 +83,8 @@ class ProfileTab extends Component {
           <Text>入金方法{`${payment ? '更新' : '追加'}`}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress = {() => this.switchPayment()} style = {styles.menuButton} >
-          <Text>ホスト画面へ移動</Text>
+        <TouchableOpacity onPress = {() => this.switchType()} style = {styles.menuButton} >
+          <Text>{`${firstRouteName === 'Main' ? 'ホスト' : 'ゲスト'}`}画面へ移動</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress = {() => this.props.logout()} style = {styles.menuButton} >
@@ -91,11 +99,13 @@ class ProfileTab extends Component {
 const mapStateToProps = state => ({
   profile: state.user.profile,
   payment: state.user.payment,
+  firstRouteName: state.nav.routes[0].routeName,
 });
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   addPayment: (stripeToken) => dispatch(addPayment(stripeToken)),
+  resetRoute: (route) => dispatch(resetRoute(route)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileTab);
