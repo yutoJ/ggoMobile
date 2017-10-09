@@ -5,69 +5,82 @@ import {
   StyleSheet,
   View,
   Text,
-  TextInput,
-  Button,
+  ScrollView,
+  Image,
+  TouchableOpacity,
 } from 'react-native';
 
-import { login, logout } from '../../actions/user';
+import { logout } from '../../actions/user';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
     padding: 20,
-  },
-  input: {
     backgroundColor: 'white',
-    height: 60,
-    padding: 20,
-    borderRadius: 3,
-    marginBottom: 10,
+  },
+  profile: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  name: {
+    flex: 1,
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#555',
+  },
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 80,
+  },
+  menuButton: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E2E2',
+    paddingVertical: 20,
+  },
+  menuButtonText: {
+    fontSize: 20,
   },
 });
 
 class ProfileTab extends Component {
 
-  state = {
-    name: ''
+  addPayment() {
+
   }
 
+  switchType() {}
+
   render() {
-    const { accessToken, login, logout, profile } = this.props;
+    const profile = this.props.profile || {}
     return (
-      <View style={styles.container}>
-        {
-          !accessToken
-          ?
-          <View>
-            <TextInput
-              style={styles.input}
-              placeholder="What's your name?"
-              onChangeText={(name) => this.setState({ name })}/>
-            <Button
-              title='Login'
-              onPress={() => login(this.state.name)}/>
-          </View>
-          :
-          <View>
-            <Text>{profile.name}</Text>
-            <Button
-              title='Logout'
-              onPress={() => logout()}/>
-          </View>
-        }
-      </View>
+      <ScrollView style = { styles.container }>
+        <View style = { styles.profile }>
+          <Text style = { styles.name }>{profile.name}</Text>
+          <Image style = { styles.avatar } source = {{ uri: profile.avatar }} />
+        </View>
+
+        <TouchableOpacity onPress = {() => this.addPayment()} style = {styles.menuButton} >
+          <Text>入金方法追加</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress = {() => this.switchPayment()} style = {styles.menuButton} >
+          <Text>ホスト画面へ移動</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress = {() => this.props.logout()} style = {styles.menuButton} >
+          <Text>ログアウト</Text>
+        </TouchableOpacity>
+
+      </ScrollView>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  accessToken: state.user.accessToken,
   profile: state.user.profile,
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: (name) => dispatch(login(name)),
   logout: () => dispatch(logout()),
 });
 
