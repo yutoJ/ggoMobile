@@ -65,3 +65,30 @@ export function logout() {
     .catch(e => BackHandler.exitApp());
   };
 }
+
+//TODO need to test
+export function addPayment(stripeToken) {
+  return (dispatch, getState) => {
+    const accessToken = getState().user.accessToken;
+
+    return fetch(`${HOST}/api/v1/payments`, {
+      method: 'POST',
+      body: JSON.stringify({
+        stripe_token: stripeToken,
+        access_token: accessToken,
+      }),
+      headers: {
+        "content-type": "application/json",
+      }
+    })
+    .then(response => response.json())
+    .then(json => {
+      if (json.is_success) {
+        dispatch(setPayment(true));
+      } else {
+        alert(json.error);
+      }
+    })
+    .catch(e => alert(e));
+  };
+}
