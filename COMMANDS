@@ -7,3 +7,7 @@ react-native run-android
 cd ~/Library/Android/sdk/tools/bin/
 ./avdmanager list avd
 emulator @Nexus_5X_C4S_Demo
+
+
+warning memo
+1. remove @override on createJSModules from fb sdk, Stripe node modules

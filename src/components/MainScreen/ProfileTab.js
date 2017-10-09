@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -11,6 +10,17 @@ import {
 } from 'react-native';
 
 import { logout } from '../../actions/user';
+import stripe from 'tipsi-stripe';
+import { STRIPE_P_KEY } from '../../constants/secret';
+
+stripe.init({
+  publishableKey: STRIPE_P_KEY,
+});
+
+const options = {
+  smsAutofillDisabled: true,
+  requiredBillingAddressFields: 'full',
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -44,14 +54,16 @@ const styles = StyleSheet.create({
 
 class ProfileTab extends Component {
 
-  addPayment() {
-
+  addPayment = async() => {
+    const token = await stripe.paymentRequestWithCardForm(options);
+    console.log(token);
   }
 
   switchType() {}
 
   render() {
     const profile = this.props.profile || {}
+    const payment = this.props.payment;
     return (
       <ScrollView style = { styles.container }>
         <View style = { styles.profile }>
@@ -59,8 +71,8 @@ class ProfileTab extends Component {
           <Image style = { styles.avatar } source = {{ uri: profile.avatar }} />
         </View>
 
-        <TouchableOpacity onPress = {() => this.addPayment()} style = {styles.menuButton} >
-          <Text>入金方法追加</Text>
+        <TouchableOpacity onPress = {() => this.addPayment().catch(e => console.log(e))} style = {styles.menuButton} >
+          <Text>入金方法{`${payment ? '更新' : '追加'}`}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress = {() => this.switchPayment()} style = {styles.menuButton} >
@@ -78,6 +90,7 @@ class ProfileTab extends Component {
 
 const mapStateToProps = state => ({
   profile: state.user.profile,
+  payment: state.user.payment,
 });
 
 const mapDispatchToProps = dispatch => ({
