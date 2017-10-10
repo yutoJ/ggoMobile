@@ -11,6 +11,7 @@ import {
 //TODO
 import { MOCK_AVATAR2 } from '../../constants/secret';
 import moment from 'moment';
+import { getReservations } from '../../actions/host';
 
 const DATE_HEIGHT = 100;
 const styles = StyleSheet.create({
@@ -60,20 +61,32 @@ const styles = StyleSheet.create({
 
 class CalendarModal extends Component {
 
+  componentWillMount() {
+    const selectedGadgetId = this.props.navigation.state.params.item.id;
+    this.props.getReservations(selectedGadgetId);
+  }
+
   render() {
+    if (!this.props.reservations) return null;
+
     const dates = moment.range(moment(), moment().add(1, 'months')).toArray('days');
 
-    const reservations = {
-      "2017-10-14": {
-        guest: {
-          name: "Jonny",
-          avatar: MOCK_AVATAR2
-        },
-        price: 500,
-        startDate: "2017-10-16",
-        endDate: "2017-10-18"
-      }
-    }
+    // const reservations = {
+    //   "2017-10-14": {
+    //     guest: {
+    //       name: "Jonny",
+    //       avatar: MOCK_AVATAR2
+    //     },
+    //     price: 500,
+    //     startDate: "2017-10-16",
+    //     endDate: "2017-10-18"
+    //   }
+    // }
+
+    let reservations = {};
+    this.props.reservations.forEach(reservation => {
+      reservations[reservation.startDate] = reservation;
+    });
 
     return (
       <ScrollView style = {styles.container}>
@@ -109,11 +122,11 @@ class CalendarModal extends Component {
 }
 
 const mapStateToProps = state => ({
-
+  reservations: state.host.reservations,
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  getReservations: (gadgetId) => dispatch(getReservations(gadgetId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarModal);

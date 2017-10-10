@@ -1,5 +1,6 @@
 import { HOST } from '../constants';
 import { MOCK_AVATAR } from '../constants/secret';
+import { MOCK_AVATAR2 } from '../constants/secret';
 //TODO
 
 export function normalizeGadgets(gadgets) {
@@ -51,4 +52,23 @@ export function normalizeProfile (email, name, image) {
     name: name || '',
     avatar: image || MOCK_AVATAR,
   }
+}
+
+export function normalizeReservations(reservations) {
+  return reservations.map(reservation => ({
+    id: reservation.id || '',
+    guest: reservation.guest ? {
+      email: reservation.guest.email || '',
+      name: reservation.guest.name || '',
+      avatar: reservation.guest.local_image.url || MOCK_AVATAR2,
+    } : {
+      email: '',
+      name: '',
+      avatar: '',
+    },
+    price: reservation.price || '',
+    startDate: reservation.start_date || '',
+    endDate: reservation.end_date || '',
+    status: reservation.status || '',
+  }))
 }
