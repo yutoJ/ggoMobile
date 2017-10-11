@@ -61,17 +61,18 @@ class ProfileTab extends Component {
   }
 
   switchType() {
-    const { resetRoute, firstRouteName } = this.props;
-    if (firstRouteName === 'Main') {
-      resetRoute({ routeName: 'Owner'});
-    } else {
-      resetRoute({ routeName: 'Main'});
+      const { resetRoute, firstRouteName } = this.props;
+      if (firstRouteName === 'Main') {
+        resetRoute({ routeName: 'Owner' });
+      } else {
+        resetRoute({ routeName: 'Main' });
+      }
     }
-  }
 
   render() {
     const profile = this.props.profile || {}
     const { payment, firstRouteName } = this.props.payment;
+    console.log(firstRouteName);
     return (
       <ScrollView style = { styles.container }>
         <View style = { styles.profile }>
