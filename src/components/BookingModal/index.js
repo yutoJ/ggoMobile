@@ -15,7 +15,7 @@ import GoGoButton from '../Shared/GoGoButton';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#007B7F',
+    backgroundColor: '#812990',
   },
   calendar: {
     marginBottom: 30,

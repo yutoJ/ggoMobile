@@ -17,7 +17,7 @@ import { goBack } from '../../actions/nav';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#007B7F',
+    backgroundColor: '#812990',
   },
   address: {
     color: '#E2E2E2',

@@ -41,10 +41,10 @@ const styles = StyleSheet.create({
   },
   filter: {
     padding: 13,
-    backgroundColor: '#007B7F',
+    backgroundColor: '#812990',
   },
   filterButton: {
-    backgroundColor: '#2F868E',
+    backgroundColor: '#a051a2',
     flexDirection: 'row',
     padding: 10,
     borderRadius: 3,

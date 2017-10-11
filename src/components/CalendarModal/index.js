@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   reservation: {
     position: 'absolute',
-    backgroundColor: '#03A598',
+    backgroundColor: '#a051a2',
     padding: 20,
     borderRadius: 5,
     top: 0,

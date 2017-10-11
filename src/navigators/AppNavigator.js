@@ -88,7 +88,7 @@ export const OwnerScreen = TabNavigator({
   ...tabConfig,
   tabBarOptions: {
     ...tabConfig.tabBarOptions,
-    activeTintColor: '#007B7F'
+    activeTintColor: '#812990'
   }
 });
 
@@ -115,7 +115,7 @@ export const AppNavigator = StackNavigator({
     screen: FilterModal,
     navigationOptions: {
       headerStyle: {
-        backgroundColor: '#007B7F',
+        backgroundColor: '#812990',
         elevation: 0,
       },
       headerTintColor: '#E2E2E2',
@@ -125,7 +125,7 @@ export const AppNavigator = StackNavigator({
     screen: BookingModal,
     navigationOptions: {
       headerStyle: {
-        backgroundColor: '#007B7F',
+        backgroundColor: '#812990',
         elevation: 0,
       },
       headerTintColor: '#E2E2E2',
@@ -162,7 +162,7 @@ class AppWithNavigationState extends Component {
     const { dispatch, nav } = this.props;
     return (
       <View style={{ flex: 1 }}>
-        <StatusBar backgroundColor="#007B7F"/>
+        <StatusBar backgroundColor="#812990"/>
         <AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
       </View>
     );
