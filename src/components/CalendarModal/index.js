@@ -6,12 +6,14 @@ import {
   Text,
   ScrollView,
   Image,
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 //TODO
 import { MOCK_AVATAR2 } from '../../constants/secret';
 import moment from 'moment';
-import { getReservations } from '../../actions/host';
+import { getReservations, changeReservation } from '../../actions/host';
 
 const DATE_HEIGHT = 100;
 const styles = StyleSheet.create({
@@ -66,6 +68,20 @@ class CalendarModal extends Component {
     this.props.getReservations(selectedGadgetId);
   }
 
+  onReservationPress(reservation) {
+    const slectedGadgetId = this.props.navigation.state.params.item.id;
+    const changeReservation = this.props.changeReservation;
+
+    Alert.alert(
+      '予約リクエスト承認',
+      'このリクエストを承認しますか？',
+      [
+        {text: '承認', onPress: () => changeReservation(slectedGadgetId, reservation.id, true)},
+        {text: '拒否', onPress: () => changeReservation(slectedGadgetId, reservation.id, false)},
+      ]
+    );
+  }
+
   render() {
     if (!this.props.reservations) return null;
 
@@ -104,13 +120,18 @@ class CalendarModal extends Component {
               <View style = {styles.details}>
                 {
                   reservation &&
-                  <View style = {[styles.reservation, { height: DATE_HEIGHT * reservationDuration }]}>
+                  <TouchableOpacity
+                    style = {[styles.reservation, { height: DATE_HEIGHT * reservationDuration }]}
+                    onPress = { () => this.onReservationPress(reservation) }
+                    disabled = { reservation.status !== 'Waiting' }
+                    >
                     <View style = { styles.info }>
                       <Text style = { styles.name }>{reservation.guest.name}</Text>
                       <Text style = {{ color: 'white' }}>{reservation.price}円</Text>
+                      <Text style = {{ color: 'white' }}>{reservation.status.toUpperCase()}</Text>
                     </View>
                     <Image style = { styles.avatar } source = {{ uri: reservation.guest.avatar }} />
-                  </View>
+                  </TouchableOpacity>
                 }
               </View>
             </View>
@@ -127,6 +148,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getReservations: (gadgetId) => dispatch(getReservations(gadgetId)),
+  changeReservation: (gadgetId, reservationId, approve) => dispatch(changeReservation(gadgetId, reservationId, approve)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarModal);

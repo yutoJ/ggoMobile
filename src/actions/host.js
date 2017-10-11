@@ -51,3 +51,31 @@ export function getReservations(gadgetId) {
     .catch(e => alert(e));
   }
 }
+
+export function changeReservation(gadgetId, reservationId, approve) {
+  return (dispatch, getState) => {
+    const accessToken = getState().user.accessToken;
+    var url = `${HOST}/api/v1/reservations/${reservationId}/`;
+    if (approve) {
+      url += 'approve';
+    } else {
+      url += 'decline';
+    }
+    return fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({
+          access_token: accessToken,
+      }),
+      headers: {"content-type": "application/json"}
+    })
+    .then(response => response.json())
+    .then(json => {
+      if(json.is_success) {
+        dispatch(getReservations(gadgetId));
+      } else {
+        alert(json.error);
+      }
+    })
+    .catch(e => alert(e));
+  }
+}
