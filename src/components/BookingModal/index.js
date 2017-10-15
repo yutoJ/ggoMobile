@@ -15,7 +15,7 @@ import GoGoButton from '../Shared/GoGoButton';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#812990',
+    backgroundColor: '#27ae60',
   },
   calendar: {
     marginBottom: 30,
@@ -66,7 +66,7 @@ class BookingModal extends Component {
 
          </View>
          <GoGoButton onPress = { () => this.onBooking()}
-           backgroundColor = {!this.state.startDate ? 'rgba(47,134,142,0.2)' : '#2F868E' }
+           backgroundColor = {!this.state.startDate ? 'rgba(47,134,142,0.2)' : '#a051a2' }
            textColor = {!this.state.startDate ? 'rgba(226,226,226,0.2)' : '#E2E2E2' }
            //TODO Request or resevation
            label = '予約'

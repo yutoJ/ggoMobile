@@ -17,7 +17,7 @@ import { goBack } from '../../actions/nav';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#812990',
+    backgroundColor: '#27ae60',
   },
   address: {
     color: '#E2E2E2',
@@ -119,7 +119,7 @@ class FilterModal extends Component {
 
         </View>
 
-        <GoGoButton onPress = { () => this.onSearch()} backgroundColor = '#2F868E' textColor = '#E2E2E2' label = '検索'/>
+        <GoGoButton onPress = { () => this.onSearch()} backgroundColor = '#812990' textColor = '#E2E2E2' label = '検索'/>
 
       </ScrollView>
     );

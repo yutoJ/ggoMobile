@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#812990',
+    backgroundColor: '#27ae60',
   },
   title: {
     fontSize: 27,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 17,
-    color: '#812990',
+    color: '#27ae60',
   },
   icon: {
     marginRight: 15,
@@ -77,7 +77,7 @@ class AuthenticationScreen extends Component {
       <View style={styles.container}>
       <Text style = {styles.title}>Gadget Goへようこそ</Text>
         <TouchableOpacity style = {styles.button} onPress = { () => this.onFBAuth() }>
-          <Icon name = "logo-facebook" size = {25} color = "#812990" style={styles.icon} />
+          <Icon name = "logo-facebook" size = {25} color = "#27ae60" style={styles.icon} />
           <Text style = {styles.buttonText}>Facebookからログイン</Text>
         </TouchableOpacity>
       </View>
